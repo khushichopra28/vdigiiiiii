@@ -185,10 +185,12 @@ a[data-cursor="CALL"] { cursor: pointer; }
   position: relative; z-index: 2;
 }
 .intro-reveal {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 0;
+  position: absolute; inset: 0;
   background: var(--dark);
   z-index: 3;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  will-change: transform;
 }
 
 /* ============================================
@@ -1476,8 +1478,16 @@ a[data-cursor="CALL"] { cursor: pointer; }
    SCROLL SNAP (MOBILE)
    ============================================ */
 @media (max-width: 768px) {
-  html { scroll-snap-type: y proximity; }
-  .hero, .about-strip, .services, .v3studios, .portfolio, .testimonials, .stats, .footer, .devlab-section {
+  html.snap-enabled { scroll-snap-type: y proximity; }
+  html.snap-enabled .hero, 
+  html.snap-enabled .about-strip, 
+  html.snap-enabled .services, 
+  html.snap-enabled .v3studios, 
+  html.snap-enabled .portfolio, 
+  html.snap-enabled .testimonials, 
+  html.snap-enabled .stats, 
+  html.snap-enabled .footer, 
+  html.snap-enabled .devlab-section {
     scroll-snap-align: start;
   }
 }
