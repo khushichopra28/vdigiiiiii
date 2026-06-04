@@ -30,20 +30,27 @@ body {
   font-family: var(--font-body);
   font-weight: 500;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
+
 
 body.loading { overflow: hidden; }
 
 ::selection { background: var(--maroon); color: var(--white); }
 
 a { text-decoration: none; color: inherit; }
-button { cursor: none; border: none; background: none; font-family: inherit; }
+button { cursor: auto; border: none; background: none; font-family: inherit; }
+
+/* Ensure normal cursor on WhatsApp jump link */
+a[data-cursor="CALL"] { cursor: pointer; }
 
 /* ============================================
    CUSTOM CURSOR
    ============================================ */
-.cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+/* Disable custom cursor entirely */
+.cursor { display: none !important; }
+.cursor-inner, .cursor-outer, .cursor-label { display: none !important; }
+
 .cursor-inner {
   width: 8px; height: 8px;
   background: var(--white);
@@ -1375,6 +1382,15 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
    ============================================ */
 .reveal-text { overflow: hidden; }
 .reveal-text > * { display: block; }
+
+/* Disable custom cursor effects and animations globally (normal OS cursor everywhere) */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Force-normal cursor everywhere */
+* { cursor: auto !important; }
+
 
 /* ============================================
    MAGNETIC EFFECT
