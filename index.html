@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VDigi — V3 Studios | We Craft Digital Powerhouses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-inner"></div>
+    <div class="cursor-outer"></div>
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
+
+  <!-- INTRO LOADER -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-grain"></div>
+    <canvas class="intro-lines" id="introLines"></canvas>
+      <div class="intro-brand-row">
+      <img src="VDigi Logo.png" id="introLogo" class="intro-logo" alt="VDigi Logo" />
+      <div class="intro-divider" id="introDivider"></div>
+      <!-- replaced text with user-provided v3 logo image -->
+      <img src="V3 Studios.png" id="introV3" class="intro-v3-img" alt="V3 STUDIOS Logo" />
+    </div>
+    <div class="intro-tagline" id="introTagline">We Craft Digital Powerhouses</div>
+    <div class="intro-reveal" id="introReveal"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <img src="VDigi Logo.png" alt="VDigi Logo" class="site-logo" />
+    </div>
+    <div class="nav-links">
+      <a href="#services" class="nav-link" data-cursor="EXPLORE">Services</a>
+      <a href="#v3studios" class="nav-link" data-cursor="EXPLORE">V3 Studios</a>
+      <a href="#portfolio" class="nav-link" data-cursor="VIEW">Work</a>
+      <a href="#contact" class="nav-link" data-cursor="EXPLORE">Contact</a>
+    </div>
+    <button class="nav-cta" data-cursor="EXPLORE">Let's Talk</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-bg"></div>
+    <div class="mobile-menu-content">
+      <a href="#services" class="mobile-nav-link">Services</a>
+      <a href="#v3studios" class="mobile-nav-link">V3 Studios</a>
+      <a href="#portfolio" class="mobile-nav-link">Work</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <span>VDigi © 2025</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+      <div class="hero-grain"></div>
+      <div class="hero-bg">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+      </div>
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="hero-content" id="heroContent">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-line"></span>
+          <span>Creative Agency × Production House</span>
+          <span class="hero-eyebrow-line"></span>
+        </div>
+        <h1 class="hero-title">
+          <div class="hero-line-wrap"><span class="hero-line" data-depth="0.02">Crafting digital experiences that are</span></div>
+          <div class="hero-line-wrap">
+            <span class="hero-line hero-line-accent hero-word-cycler" data-depth="0.04">
+              <span class="cycler-container" id="heroCycler">
+                <span class="cycler-word active" data-index="0">Sleek</span>
+                <span class="cycler-word" data-index="1">Strategic</span>
+                <span class="cycler-word" data-index="2">Cinematic</span>
+                <span class="cycler-word" data-index="3">Interactive</span>
+                <span class="cycler-word" data-index="4">Extraordinary</span>
+              </span>
+            </span>
+          </div>
+        </h1>
+        <p class="hero-sub">We craft bold digital experiences that blend strategy, creativity, and cinematic storytelling. From branding and marketing to high-impact visual production, VDigi helps businesses build a presence that feels modern, memorable, and impossible to ignore..</p>
+        <div class="hero-cta-group">
+          <button class="btn-outline btn-lg magnetic" data-cursor="CALL">
+            Jump on a call
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </button>
+          <button class="btn-primary btn-lg magnetic" data-cursor="EXPLORE">
+            Sign up here
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <div class="btn-ripple"></div>
+          </button>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="hero-scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <section class="stats-strip" id="stats">
+      <div class="stats-strip-container">
+        <div class="stats-strip-item">
+          <div class="stats-strip-num"><span class="stat-counter" data-count="500">0</span><span class="stats-strip-accent">+</span></div>
+          <div class="stats-strip-label">Projects Delivered</div>
+        </div>
+        <div class="stats-strip-item">
+          <div class="stats-strip-num"><span class="stat-counter" data-count="7">0</span><span class="stats-strip-accent">+</span></div>
+          <div class="stats-strip-label">Years of Excellence</div>
+        </div>
+        <div class="stats-strip-item">
+          <div class="stats-strip-num"><span class="stat-counter" data-count="100+">0</span><span class="stats-strip-accent">+</span></div>
+          <div class="stats-strip-label">Pan India Clients</div>
+        </div>
+        <div class="stats-strip-item">
+          <div class="stats-strip-num"><span class="stat-counter" data-count="98">0</span><span class="stats-strip-accent">%</span></div>
+          <div class="stats-strip-label">Client Retention</div>
+        </div>
+      </div>
+      <div class="stats-strip-footer-line"></div>
+    </section>
+
+    <!-- ABOUT STRIP -->
+    <section class="about-strip" id="about">
+      <div class="about-strip-inner">
+        <div class="about-text-block">
+          <p class="about-label">About</p>
+          <h2 class="about-heading reveal-text">what we are <br/>who we are ?</h2>
+        </div>
+        <div class="about-desc-block">
+          <p class="about-desc reveal-text">At VDigi, we believe great brands are not just seen, they are experienced. We are a creative digital agency focused on building visually compelling, strategy-driven, and cinematic digital experiences that help brands stand out in an ever-evolving digital world. From branding, social media marketing, and performance campaigns to high-end content production through V3 Studios, we combine creativity, storytelling, and innovation to craft experiences that feel modern, impactful, and unforgettable. Our approach blends aesthetics with performance, helping businesses grow through meaningful design, engaging content, and powerful digital presence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+      <div class="services-header">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title reveal-text">Integrated Solutions<br/>for Modern Brands</h2>
+      </div>
+      <div class="services-grid" id="servicesGrid">
+        <div class="service-card" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="2" y="2" width="12" height="12" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="2" width="12" height="12" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="18" width="12" height="12" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Brand Strategy</h3>
+            <p class="service-desc">Positioning, identity systems, and brand architecture that commands attention.</p>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+        <div class="service-card service-card-featured" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M10 16 L14 20 L22 12" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Digital Production</h3>
+            <p class="service-desc">Full-scale digital campaigns, motion content, and interactive experiences.</p>
+            <div class="service-tag">Featured</div>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+        <div class="service-card" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 28 L16 4 L28 28" stroke="currentColor" stroke-width="1.5"/><path d="M8 20 L24 20" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Creative Direction</h3>
+            <p class="service-desc">Art direction, visual storytelling, and editorial design for premium brands.</p>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+        <div class="service-card" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="2" y="8" width="28" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 8 V4 M22 8 V4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Web & UX Design</h3>
+            <p class="service-desc">Award-worthy digital interfaces built for conversion and delight.</p>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+        <div class="service-card" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M16 2 V6 M16 26 V30 M2 16 H6 M26 16 H30" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Social & Content</h3>
+            <p class="service-desc">Platform-native content strategy that builds communities and drives growth.</p>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+        <div class="service-card" data-cursor="EXPLORE">
+          <div class="service-card-inner">
+            <div class="service-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 4 L28 4 L28 22 L16 28 L4 22 Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="service-title">Film & Production</h3>
+            <p class="service-desc">Cinematic brand films, commercials, and documentary-style storytelling.</p>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-card-bg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND REELS SECTION -->
+    <section class="brand-reels" id="brand-reels">
+      <div class="reels-header">
+        <span class="section-label">Brand in Motion</span>
+        <h2 class="section-title reveal-text">CREATIVE REELS</h2>
+      </div>
+      
+      <div class="reels-marquee-wrap">
+        <div class="reels-marquee" id="reelsMarquee"></div>
+      </div>
+
+      <div class="reel-modal" id="reelModal" aria-hidden="true">
+        <div class="reel-modal-inner" role="dialog" aria-modal="true" aria-labelledby="reelModalTitle">
+          <button class="reel-modal-close" id="reelModalClose" aria-label="Close reel preview">×</button>
+          <div class="reel-modal-header">
+            <div class="reel-modal-tag">Creative Reel</div>
+            <h3 class="reel-modal-title" id="reelModalTitle">Reel Preview</h3>
+          </div>
+          <video class="reel-modal-video" id="reelModalVideo" controls playsinline></video>
+        </div>
+      </div>
+    </section>
+
+    <!-- V3 STUDIOS SECTION -->
+    <section class="v3studios" id="v3studios">
+      <div class="v3-grain"></div>
+      <div class="v3-bg-reel">
+        <div class="v3-reel-overlay"></div>
+        <div class="v3-waveform" id="v3Waveform"></div>
+      </div>
+      <div class="v3-content">
+        <div class="v3-eyebrow">
+          <span class="v3-eyebrow-line"></span>
+          <span>Production Universe</span>
+        </div>
+        <h2 class="v3-title reveal-text">V3 STUDIOS</h2>
+        <p class="v3-sub reveal-text">Where cinematic vision meets digital precision. We don't just produce content — we craft experiences that move people.</p>
+        <button class="btn-primary btn-light magnetic" data-cursor="PLAY">
+          <span>Enter the Studio</span>
+        </button>
+      </div>
+      <div class="v3-reel-grid" id="v3ReelGrid">
+        <div class="reel-item" data-cursor="PLAY">
+          <div class="reel-thumb">
+            <div class="reel-thumb-img reel-img-1"></div>
+            <div class="reel-play-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="5,2 18,10 5,18" fill="white"/></svg></div>
+            <div class="reel-overlay"></div>
+          </div>
+          <div class="reel-info">
+            <span class="reel-year">2024</span>
+            <h4 class="reel-title">Brand Campaign — Luxe</h4>
+          </div>
+        </div>
+        <div class="reel-item" data-cursor="PLAY">
+          <div class="reel-thumb">
+            <div class="reel-thumb-img reel-img-2"></div>
+            <div class="reel-play-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="5,2 18,10 5,18" fill="white"/></svg></div>
+            <div class="reel-overlay"></div>
+          </div>
+          <div class="reel-info">
+            <span class="reel-year">2024</span>
+            <h4 class="reel-title">Documentary Series</h4>
+          </div>
+        </div>
+        <div class="reel-item" data-cursor="PLAY">
+          <div class="reel-thumb">
+            <div class="reel-thumb-img reel-img-3"></div>
+            <div class="reel-play-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="5,2 18,10 5,18" fill="white"/></svg></div>
+            <div class="reel-overlay"></div>
+          </div>
+          <div class="reel-info">
+            <span class="reel-year">2023</span>
+            <h4 class="reel-title">Product Launch Film</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section class="portfolio" id="portfolio">
+      <div class="portfolio-header">
+        <span class="section-label">Selected Work</span>
+        <h2 class="section-title reveal-text">The Collection</h2>
+      </div>
+      <div class="portfolio-grid" id="portfolioGrid" role="list" aria-live="polite">
+        <!-- Two-row marquee collection -->
+        <div class="collection-marquee" id="collectionMarquee" aria-hidden="false">
+          <div class="marquee-row marquee-row-1">
+            <div class="marquee-track" id="marqueeTrack1" aria-hidden="true"></div>
+          </div>
+          <div class="marquee-row marquee-row-2">
+            <div class="marquee-track" id="marqueeTrack2" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE MODAL (collection preview) -->
+    <div class="image-modal" id="imageModal" aria-hidden="true">
+      <div class="image-modal-inner" role="dialog" aria-modal="true">
+        <button class="image-modal-close" id="imageModalClose" aria-label="Close image preview">×</button>
+        <img id="imageModalImg" class="image-modal-img" alt="" />
+        <div class="image-modal-caption" id="imageModalCaption"></div>
+      </div>
+    </div>
+    </section>
+
+
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials-header">
+        <span class="section-label">Client Voices</span>
+      </div>
+      <div class="testimonials-marquee-wrap">
+        <div class="testimonials-marquee" id="testimonialsMarquee">
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"VDigi didn't just redesign our brand. They re-engineered our market position."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Arjun Mehta</span>
+              <span class="testimonial-role">CEO, Apex Ventures</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"The V3 Studios team brought a cinematic quality to our campaign that we never thought possible."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Priya Sharma</span>
+              <span class="testimonial-role">CMO, Luxe Collective</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"Working with VDigi felt like having a world-class creative director embedded in our team."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Daniel Osei</span>
+              <span class="testimonial-role">Founder, Meridian Films</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"Every pixel, every frame — crafted with intention. The results speak for themselves."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Sofia Reyes</span>
+              <span class="testimonial-role">Director, Solaris Digital</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"VDigi didn't just redesign our brand. They re-engineered our market position."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Arjun Mehta</span>
+              <span class="testimonial-role">CEO, Apex Ventures</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-quote">"The V3 Studios team brought a cinematic quality to our campaign that we never thought possible."</div>
+            <div class="testimonial-author">
+              <span class="testimonial-name">Priya Sharma</span>
+              <span class="testimonial-role">CMO, Luxe Collective</span>
+            </div>
+            <div class="testimonial-accent"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- CONTACT / FOOTER -->
+    <footer class="footer" id="contact">
+      <div class="footer-grain"></div>
+      <div class="footer-glow"></div>
+      <div class="footer-bg-text">VDigi</div>
+      <div class="footer-content">
+        <div class="footer-cta-block">
+          <span class="section-label">Ready to Begin?</span>
+          <h2 class="footer-title reveal-text">LET'S BUILD YOUR<br/><em>BRAND LEGACY</em></h2>
+          <p class="footer-sub">We take on select projects. Let's see if we're the right fit.</p>
+          <button class="btn-primary magnetic btn-large" data-cursor="EXPLORE">
+            <span>Start a Project</span>
+            <div class="btn-ripple"></div>
+          </button>
+        </div>
+        <div class="footer-links-block">
+          <div class="footer-col">
+            <h4>Studio</h4>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">V3 Studios</a>
+            <a href="#">Careers</a>
+          </div>
+          <div class="footer-col">
+            <h4>Work</h4>
+            <a href="#">Portfolio</a>
+            <a href="#">Case Studies</a>
+            <a href="#">Reel</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Behance</a>
+            <a href="#">hello@vdigi.studio</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-logo">
+          <img src="VDigi Logo.png" alt="VDigi Logo" class="site-logo footer-logo-img" />
+        </div>
+        <span class="footer-copy">© 2025 VDigi & V3 Studios. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
