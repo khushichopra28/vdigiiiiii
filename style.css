@@ -266,8 +266,8 @@ a[data-cursor="CALL"] { cursor: pointer; }
   margin-left: 24px;
 }
 .nav-hamburger span {
-  display: block; width: 24px; height: 1px;
-  background: var(--white);
+  display: block; width: 24px; height: 1.5px;
+  background: var(--black);
   transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -944,7 +944,9 @@ a[data-cursor="CALL"] { cursor: pointer; }
   width: max-content;
   animation: marqueeScroll 40s linear infinite;
 }
-.testimonials-marquee:hover { animation-play-state: paused; }
+@media (hover: hover) {
+  .testimonials-marquee:hover { animation-play-state: paused; }
+}
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -1107,8 +1109,10 @@ a[data-cursor="CALL"] { cursor: pointer; }
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-50% - 16px)); }
 }
-.reels-marquee:hover {
-  animation-play-state: paused;
+@media (hover: hover) {
+  .reels-marquee:hover {
+    animation-play-state: paused;
+  }
 }
 .reel-card {
   width: 320px;
