@@ -462,6 +462,32 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeImageModal(); });
   }
 
+  function closeSignUpModal() {
+    const modal = document.getElementById('signUpModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  function initSignUpModal() {
+    const modal = document.getElementById('signUpModal');
+    const closeBtn = document.getElementById('signUpModalClose');
+    const heroSignUpBtn = document.getElementById('heroSignUpBtn');
+    if (!modal) return;
+
+    if (heroSignUpBtn) {
+      heroSignUpBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeSignUpModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeSignUpModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeSignUpModal(); });
+  }
+
   function initHeroCycler() {
     const words = Array.from(document.querySelectorAll('#heroCycler .cycler-word'));
     if (words.length < 2) return;
@@ -837,6 +863,7 @@
     initReelModal();
     initCollectionGrid(getCollectionImagesCurated());
     initImageModal();
+    initSignUpModal();
 
     initHeroCycler();
     initWaveform();
