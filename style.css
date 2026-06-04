@@ -185,13 +185,22 @@ a[data-cursor="CALL"] { cursor: pointer; }
   position: relative; z-index: 2;
 }
 .intro-reveal {
-  position: absolute; inset: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  transform-origin: bottom;
   background: var(--dark);
   z-index: 3;
-  transform: scaleY(0);
-  transform-origin: bottom;
-  will-change: transform;
+  pointer-events: none;
+  /* keep it visually contained to the loader so it can't cover the hero */
+  width: 100%;
+  max-width: 100%;
 }
+
+
+
 
 /* ============================================
    NAVIGATION
@@ -384,7 +393,9 @@ a[data-cursor="CALL"] { cursor: pointer; }
   text-transform: uppercase; color: var(--gray);
   margin-bottom: 28px;
   opacity: 0;
+  transform: translateY(20px);
 }
+
 .hero-eyebrow-line {
   display: block; width: 40px; height: 1px;
   background: var(--maroon);
@@ -456,12 +467,16 @@ a[data-cursor="CALL"] { cursor: pointer; }
   color: var(--gray-light);
   margin-bottom: 36px;
   opacity: 0;
+  transform: translateY(20px);
 }
+
 .hero-cta-group {
   display: flex; gap: 20px; align-items: center; justify-content: center;
   flex-wrap: wrap;
   opacity: 0;
+  transform: translateY(20px);
 }
+
 .hero-scroll-hint {
   display: none;
 }

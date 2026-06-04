@@ -120,7 +120,7 @@
       .to('#introDivider', { opacity: 1, scaleY: 1, duration: 0.5, ease: 'cinematic' }, 1.2)
       .to('#introV3', { opacity: 1, y: 0, duration: 0.7, ease: 'cinematic' }, 1.4)
       .to('#introTagline', { opacity: 1, duration: 0.6, ease: 'power2.out' }, 1.9)
-      .to('#introReveal', { scaleY: 1, duration: 0.9, ease: 'power4.inOut' }, 2.8)
+      .to('#introReveal', { height: '100%', duration: 0.9, ease: 'power4.inOut' }, 2.8)
       .to(loader, { opacity: 0, duration: 0.3 }, 3.6)
       .set(loader, { display: 'none' });
   }
@@ -596,25 +596,36 @@
 
   // ─── MAIN SCROLL ANIMATIONS ───────────────────────────────────────────────
   function initMainAnimations() {
-    // Nav reveal
-    gsap.to('.nav-logo', { opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.1 });
-    gsap.to('.nav-link', { opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power2.out', delay: 0.2 });
-    gsap.to('.nav-cta', { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 0.5 });
+    // ─── NAV + HERO: mobile uses simple fast animations, desktop uses cinematic
+    if (isMobile()) {
+      // On mobile: instant reveal with simple fade — no cinematic ease required
+      gsap.set(['.nav-logo', '.nav-link', '.nav-cta'], { opacity: 1 });
+      gsap.set('.hero-line', { y: '0%' });
+      gsap.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: 0.05 });
+      gsap.to('.hero-sub', { opacity: 1, duration: 0.4, ease: 'power2.out', delay: 0.15 });
+      gsap.to('.hero-cta-group', {
+        opacity: 1, duration: 0.4, ease: 'power2.out', delay: 0.25,
+        onComplete: () => { document.documentElement.classList.add('snap-enabled'); }
+      });
+    } else {
+      // Desktop: full cinematic entrance
+      gsap.to('.nav-logo', { opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.1 });
+      gsap.to('.nav-link', { opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power2.out', delay: 0.2 });
+      gsap.to('.nav-cta', { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 0.5 });
 
-    // Hero entrance
-    const heroTl = gsap.timeline({
-      delay: 0.2,
-      onComplete: () => {
-        // Enable scroll snap on mobile ONLY after all intro/landing page animations are completed.
-        document.documentElement.classList.add('snap-enabled');
-      }
-    });
-    heroTl
-      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'cinematic' })
-      .to('.hero-cta-tagline', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.6')
-      .to('.hero-line', { y: '0%', duration: 1, stagger: 0.12, ease: 'cinematic' }, '-=0.4')
-      .to('.hero-sub', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.3')
-      .to('.hero-cta-group', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.4');
+      const heroTl = gsap.timeline({
+        delay: 0.2,
+        onComplete: () => {
+          document.documentElement.classList.add('snap-enabled');
+        }
+      });
+      heroTl
+        .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'cinematic' })
+        .to('.hero-cta-tagline', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.6')
+        .to('.hero-line', { y: '0%', duration: 1, stagger: 0.12, ease: 'cinematic' }, '-=0.4')
+        .to('.hero-sub', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.3')
+        .to('.hero-cta-group', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.4');
+    }
 
     // About section
     ScrollTrigger.create({
