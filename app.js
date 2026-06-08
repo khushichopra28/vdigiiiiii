@@ -243,14 +243,14 @@
   }
 
   const reelVideos = [
-    { src: 'Final Giftara Bhavya Reel_1.mp4', label: 'Giftara Bhavya' },
-    { src: 'Bombaysthan Reel-.mp4', label: 'Bombaysthan' },
-    { src: 'bombaysthan new.mp4', label: 'Bombaysthan New' },
-    { src: 'RCB poojaReel.mp4', label: 'RCB Pooja' },
-    { src: 'pearl banquet hall x influencer.mp4', label: 'Pearl Banquet' },
-    { src: 'mint vault new reel - 1.mp4', label: 'Mint Vault' },
-    { src: 'IMG_7765.mp4', label: 'Mobile Reel 1' },
-    { src: 'IMG_3534.mp4', label: 'Mobile Reel 2' },
+    { src: 'Final Giftara Bhavya Reel_1.mp4' },
+    { src: 'Bombaysthan Reel-.mp4' },
+    { src: 'bombaysthan new.mp4' },
+    { src: 'RCB poojaReel.mp4' },
+    { src: 'pearl banquet hall x influencer.mp4' },
+    { src: 'mint vault new reel - 1.mp4' },
+    { src: 'IMG_7765.mp4' },
+    { src: 'IMG_3534.mp4' },
   ];
 
   function getVideoMimeType(src) {
@@ -319,7 +319,7 @@
       card.className = 'reel-card';
       card.dataset.cursor = 'WATCH';
       card.dataset.src = item.src;
-      card.dataset.label = item.label;
+      card.dataset.label = '';
 
       const container = document.createElement('div');
       container.className = 'reel-video-container';
@@ -342,7 +342,7 @@
 
       const brandTag = document.createElement('div');
       brandTag.className = 'reel-brand-tag';
-      brandTag.textContent = item.label;
+      brandTag.textContent = '';
 
       const playIndicator = document.createElement('div');
       playIndicator.className = 'reel-play-indicator';
@@ -361,7 +361,7 @@
         const modalTitle = document.getElementById('reelModalTitle');
         if (!modal || !modalVideo || !modalTitle) return;
         pauseMarqueeVideos();
-        modalTitle.textContent = item.label;
+        modalTitle.textContent = '';
         modalVideo.innerHTML = '';
         const source = document.createElement('source');
         source.src = encodeURI(item.src);
@@ -381,12 +381,8 @@
      COLLECTION GRID (curated + PNG-based)
      ============================================ */
   function prettyNameFromFile(fileName) {
-    return fileName
-      .replace(/\.png$/i, '')
-      .replace(/\s+/g, ' ')
-      .replace(/\s-\s/g, ' - ')
-      .replace(/[-_]/g, ' ')
-      .trim();
+    // Intentionally returns blank so poster/reel names are not shown.
+    return '';
   }
 
   function getCollectionImagesCurated() {
@@ -417,7 +413,7 @@
       const src = `collection/${file}`;
       return {
         src,
-        title: prettyNameFromFile(file),
+        title: '',
         caption: ''
       };
     });
@@ -438,14 +434,14 @@
       const img = document.createElement('img');
       const src = typeof entry === 'string' ? entry : (entry.src || '');
       img.src = encodeURI(src);
-      img.alt = (entry.title) ? entry.title : src.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      img.alt = '';
       img.loading = 'lazy';
 
       const body = document.createElement('div');
       body.className = 'card-body';
 
       const title = document.createElement('h4');
-      title.textContent = img.alt;
+      title.textContent = '';
 
       const caption = document.createElement('p');
       caption.textContent = entry.caption || '';
