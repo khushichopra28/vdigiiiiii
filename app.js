@@ -12,6 +12,7 @@
 
   const isMobile = () => window.innerWidth <= 768;
 
+
   // ─── LENIS SMOOTH SCROLL ──────────────────────────────────────────────────
   let lenis;
   function initLenis() {
@@ -74,38 +75,10 @@
     const loader = document.getElementById('introLoader');
     const canvas = document.getElementById('introLines');
 
-    // On mobile: don't animate the full-screen canvas intro. Show main landing immediately.
-    // This avoids blocking first paint on slow devices and ensures the hero loads right after intro.
-    if (isMobile()) {
-      if (loader) {
-        // Start closing immediately
-        gsap.set(loader, { opacity: 1, display: 'flex' });
-        gsap.to(loader, {
-          opacity: 0,
-          duration: 0.15,
-          ease: 'power2.out',
-          onComplete: () => {
-            if (!loader) return;
-            loader.style.display = 'none';
-          },
-        });
-      }
-
-      // Immediately reveal the main landing content for mobile
-      document.body.classList.remove('loading');
-      initMainAnimations();
-
-      // Stop any canvas work immediately
-      if (canvas) {
-        const ctx = canvas.getContext('2d');
-        ctx && ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-      return;
-    }
-
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
+
     canvas.height = window.innerHeight;
 
     // Draw animated tracking lines
@@ -157,6 +130,7 @@
 
   // ─── HERO PARTICLES ───────────────────────────────────────────────────────
   function initParticles() {
+
     const container = document.getElementById('heroParticles');
     if (!container) return;
     const particleCount = 140;
