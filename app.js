@@ -431,16 +431,34 @@
 
     const baseFragment = document.createDocumentFragment();
 
+    // Mobile tap-vs-scroll detection state
+    const touchState = {
+      startX: 0,
+      startY: 0,
+      startTime: 0,
+      moved: false,
+      active: false,
+    };
+
+    function isLikelyMobile() {
+      return window.innerWidth <= 768;
+    }
+
     entries.forEach((entry) => {
       const src = typeof entry === 'string' ? entry : (entry.src || '');
 
       const card = document.createElement('div');
       card.className = 'portfolio-card';
+      card.setAttribute('role', 'button');
 
       const img = document.createElement('img');
       img.src = encodeURI(src);
       img.alt = '';
       img.loading = 'lazy';
+      img.decoding = 'async';
+      // Prevent layout shift: match carousel card image dimensions from CSS
+      img.width = 280;
+      img.height = 320;
 
       const body = document.createElement('div');
       body.className = 'card-body';
@@ -457,25 +475,75 @@
       card.appendChild(img);
       card.appendChild(body);
 
-      // Pause completely on hover and click
-      card.addEventListener('mouseenter', () => track.classList.add('is-paused'));
-      card.addEventListener('mouseleave', () => track.classList.remove('is-paused'));
+      // Desktop behavior: pause on hover, resume on leave.
+      // Mobile behavior: NEVER pause on scroll; only pause on a deliberate tap/click.
+      if (!isLikelyMobile()) {
+        card.addEventListener('mouseenter', () => track.classList.add('is-paused'));
+        card.addEventListener('mouseleave', () => track.classList.remove('is-paused'));
+      }
+
+      // Shared: click opens modal.
+      // IMPORTANT: on mobile we only pause on a confirmed tap (touchend with <10px movement).
       card.addEventListener('click', () => {
-        track.classList.add('is-paused');
         openImageModal(src, img.alt);
-        // If mouse leaves quickly after click, we should still keep the carousel paused
-        // until the modal is closed.
-        track.classList.add('is-paused-by-click');
+        if (!isLikelyMobile()) {
+          track.classList.add('is-paused');
+          track.classList.add('is-paused-by-click');
+        }
       });
 
+
+      // Mobile: tap pause for 2s, but do NOT pause on scroll swipes.
+      if (isLikelyMobile()) {
+        card.addEventListener('touchstart', (e) => {
+          if (!e.touches || !e.touches[0]) return;
+          const t = e.touches[0];
+          touchState.startX = t.clientX;
+          touchState.startY = t.clientY;
+          touchState.startTime = Date.now();
+          touchState.moved = false;
+          touchState.active = true;
+        }, { passive: true });
+
+        card.addEventListener('touchmove', (e) => {
+          if (!touchState.active) return;
+          if (!e.touches || !e.touches[0]) return;
+          const t = e.touches[0];
+          const dx = Math.abs(t.clientX - touchState.startX);
+          const dy = Math.abs(t.clientY - touchState.startY);
+          if (dx > 10 || dy > 10) touchState.moved = true;
+        }, { passive: true });
+
+        card.addEventListener('touchend', () => {
+          if (!touchState.active) return;
+          touchState.active = false;
+
+          // If user moved finger > 10px, treat as scroll/swipe: do not pause.
+          if (touchState.moved) return;
+
+          // Confirmed tap: pause for 2s then resume.
+          track.classList.add('is-paused');
+          window.setTimeout(() => {
+            // Only resume if modal isn't open.
+            const modal = document.getElementById('imageModal');
+            if (modal && modal.classList.contains('open')) return;
+            track.classList.remove('is-paused');
+          }, 2000);
+        });
+      }
+
+
       // Resume only if we are not pausing due to click/modal.
-      card.addEventListener('mouseleave', () => {
-        if (track.classList.contains('is-paused-by-click')) return;
-        track.classList.remove('is-paused');
-      });
+      if (!isLikelyMobile()) {
+        card.addEventListener('mouseleave', () => {
+          if (track.classList.contains('is-paused-by-click')) return;
+          track.classList.remove('is-paused');
+        });
+      }
 
       baseFragment.appendChild(card);
     });
+
 
     // Duplicate base items to make the loop seamless.
     // CSS animation moves the track by half its total width (from 0% to -50%).

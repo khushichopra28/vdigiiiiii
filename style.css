@@ -909,11 +909,15 @@ a[data-cursor="CALL"] { cursor: pointer; }
   gap: 16px;
   animation: portfolioCarouselScroll 32s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
+
 
 .portfolio-carousel-track.is-paused {
   animation-play-state: paused;
 }
+
 
 /* Carousel cards */
 .portfolio-card {
@@ -1168,7 +1172,11 @@ a[data-cursor="CALL"] { cursor: pointer; }
   gap: 32px;
   width: max-content;
   animation: scrollReels 35s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
+
 @keyframes scrollReels {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-50% - 16px)); }
