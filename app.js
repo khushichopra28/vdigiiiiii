@@ -978,6 +978,113 @@
   }
 
   // ─── INIT ─────────────────────────────────────────────────────────────────
+  function initToast() {
+    const toast = document.getElementById('formToast');
+    if (!toast) return;
+    toast.style.display = 'block';
+  }
+
+  function showToast(message, type) {
+    const toast = document.getElementById('formToast');
+    if (!toast) return;
+    toast.textContent = message;
+    // support both old types ('error') and new Web3Forms types ('red'/'green')
+    toast.style.background = (type === 'green' || type === 'success') ? '#22c55e' : '#ef4444';
+    toast.classList.remove('hide');
+    toast.classList.add('show');
+
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(() => {
+      toast.classList.remove('show');
+      toast.classList.add('hide');
+    }, 4000);
+  }
+
+  function initFormSubmission() {
+    const form = document.querySelector('.signup-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      // Ensure access_key is present even if hidden input was removed/edited
+      if (!formData.get('access_key')) {
+        formData.append('access_key', '66937475-bafc-4a4a-a00b-48ccaff14f97');
+      }
+
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: json,
+        });
+
+        const result = await response.json();
+
+        if (result && result.success) {
+          showToast('Details submitted successfully!', 'green');
+          form.reset();
+        } else {
+          showToast('Something went wrong. Please try again.', 'red');
+        }
+      } catch (error) {
+        console.error('Web3Forms error:', error);
+        showToast('Something went wrong. Please try again.', 'red');
+      }
+    });
+  }
+
+  function initReelsMobileAutoplay() {
+    const wrapper = document.getElementById('reelsMarquee');
+    if (!wrapper) return;
+
+    const reelVideos = wrapper.querySelectorAll('video');
+
+    reelVideos.forEach((video) => {
+      video.autoplay = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.loop = true;
+      video.setAttribute('autoplay', '');
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('loop', '');
+    });
+
+    // Force-play fallback
+    reelVideos.forEach((video) => {
+      video.muted = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.play().catch(() => {});
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      reelVideos.forEach((v) => v.play().catch(() => {}));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.muted = true;
+          entry.target.play().catch(() => {});
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    reelVideos.forEach((v) => observer.observe(v));
+  }
+
   async function init() {
     await loadLenis();
     initLenis();
@@ -991,12 +1098,17 @@
     initImageModal();
     initSignUpModal();
 
+    initToast();
+    initFormSubmission();
+    initReelsMobileAutoplay();
+
     initHeroCycler();
     initWaveform();
     initIntro();
     initDevLab();
     window.addEventListener('resize', resizeCanvas);
   }
+
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
