@@ -419,20 +419,25 @@
     });
   }
 
-  function initCollectionGrid(items) {
-    const grid = document.getElementById('portfolioGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
+  function initPortfolioCarousel(items) {
+    const viewport = document.getElementById('portfolioCarouselViewport');
+    const track = document.getElementById('portfolioCarouselTrack');
+    if (!viewport || !track) return;
+
+    track.innerHTML = '';
 
     const data = Array.isArray(items) ? items : [];
+    const entries = data.slice(0, 18);
 
-    // Render only a professional subset.
-    data.slice(0, 18).forEach((entry) => {
+    const baseFragment = document.createDocumentFragment();
+
+    entries.forEach((entry) => {
+      const src = typeof entry === 'string' ? entry : (entry.src || '');
+
       const card = document.createElement('div');
       card.className = 'portfolio-card';
 
       const img = document.createElement('img');
-      const src = typeof entry === 'string' ? entry : (entry.src || '');
       img.src = encodeURI(src);
       img.alt = '';
       img.loading = 'lazy';
@@ -444,18 +449,54 @@
       title.textContent = '';
 
       const caption = document.createElement('p');
-      caption.textContent = entry.caption || '';
+      caption.textContent = entry && entry.caption ? entry.caption : '';
 
       body.appendChild(title);
       body.appendChild(caption);
 
       card.appendChild(img);
       card.appendChild(body);
-      grid.appendChild(card);
 
-      card.addEventListener('click', () => openImageModal(src, img.alt));
+      // Pause completely on hover and click
+      card.addEventListener('mouseenter', () => track.classList.add('is-paused'));
+      card.addEventListener('mouseleave', () => track.classList.remove('is-paused'));
+      card.addEventListener('click', () => {
+        track.classList.add('is-paused');
+        openImageModal(src, img.alt);
+        // If mouse leaves quickly after click, we should still keep the carousel paused
+        // until the modal is closed.
+        track.classList.add('is-paused-by-click');
+      });
+
+      // Resume only if we are not pausing due to click/modal.
+      card.addEventListener('mouseleave', () => {
+        if (track.classList.contains('is-paused-by-click')) return;
+        track.classList.remove('is-paused');
+      });
+
+      baseFragment.appendChild(card);
     });
+
+    // Duplicate base items to make the loop seamless.
+    // CSS animation moves the track by half its total width (from 0% to -50%).
+    const baseClone = baseFragment.cloneNode(true);
+    track.appendChild(baseFragment);
+    track.appendChild(baseClone);
+
+    // Ensure consistent pause behavior when user is interacting with the modal.
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+      const resumeWhenClosed = () => {
+        // Only resume when not currently hovering any card.
+        track.classList.remove('is-paused');
+      };
+      // Resume after modal close (existing closeImageModal removes .open)
+      modal.addEventListener('transitionend', () => {
+        if (!modal.classList.contains('open')) resumeWhenClosed();
+      });
+    }
   }
+
 
 
   function openImageModal(src, caption) {
@@ -904,7 +945,7 @@
     initMagnetic();
     initReelCards();
     initReelModal();
-    initCollectionGrid(getCollectionImagesCurated());
+    initPortfolioCarousel(getCollectionImagesCurated());
     initImageModal();
     initSignUpModal();
 

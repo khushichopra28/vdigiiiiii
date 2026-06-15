@@ -877,22 +877,45 @@ a[data-cursor="CALL"] { cursor: pointer; }
 .portfolio-item:hover .portfolio-overlay { opacity: 1; }
 .portfolio-item:hover .portfolio-overlay span { transform: translateY(0); }
 
-/* Dynamic collection grid styles */
-#portfolioGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  align-items: start;
+/* ============================================
+   PORTFOLIO COLLECTION CAROUSEL (INFINITE)
+   ============================================ */
+
+@keyframes portfolioCarouselScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
+
+.portfolio-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.portfolio-carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: portfolioCarouselScroll 32s linear infinite;
+  will-change: transform;
+}
+
+.portfolio-carousel-track.is-paused {
+  animation-play-state: paused;
+}
+
+/* Carousel cards */
 .portfolio-card {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
   background: linear-gradient(180deg, rgba(250,250,248,1), rgba(245,240,238,1));
   box-shadow: 0 18px 45px rgba(11,6,6,0.08);
+  width: 280px;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
 }
+
 .portfolio-card img {
   width: 100%;
   height: 320px;
@@ -900,17 +923,23 @@ a[data-cursor="CALL"] { cursor: pointer; }
   display: block;
   transition: transform 0.6s var(--ease-out);
 }
+
 .portfolio-card .card-body {
   padding: 12px 16px 18px;
 }
+
 .portfolio-card h4 {
   margin: 0 0 6px;
   font-size: 16px;
   color: #1a0000;
 }
+
 .portfolio-card p {
-  margin: 0; color: #6b6060; font-size: 13px;
+  margin: 0;
+  color: #6b6060;
+  font-size: 13px;
 }
+
 .portfolio-card:hover img { transform: scale(1.04); }
 .portfolio-card::after {
   content: '';
@@ -919,6 +948,12 @@ a[data-cursor="CALL"] { cursor: pointer; }
   pointer-events: none;
   border-radius: 16px;
 }
+
+@media (max-width: 768px) {
+  .portfolio-card { width: 240px; }
+  .portfolio-card img { height: 280px; }
+}
+
 
 /* Image modal */
 .image-modal {
