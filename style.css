@@ -811,8 +811,20 @@ a[data-cursor="CALL"] { cursor: pointer; }
 .portfolio {
   padding: 120px 48px;
   max-width: 1400px; margin: 0 auto;
+  background: linear-gradient(135deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);
+  color: #FFFFFF;
+  overflow: hidden;
 }
-.portfolio-header { margin-bottom: 64px; }
+.portfolio-header {
+  margin-bottom: 64px;
+}
+.portfolio-header .section-title {
+  color: #FFFFFF;
+}
+.portfolio-header .section-label {
+  color: rgba(255,255,255,0.85);
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
